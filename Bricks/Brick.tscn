@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://7f3b4r8nw5re"]
+
+[ext_resource type="Script" path="res://Bricks/Brick.gd" id="1_8gtqh"]
+[ext_resource type="Texture2D" uid="uid://bavlpantn6kcr" path="res://Bricks/brick_blue.png" id="1_c6lnd"]
+[ext_resource type="Texture2D" uid="uid://bdhvtno5hp0gp" path="res://Bricks/brick_red.png" id="2_5ao3f"]
+[ext_resource type="Texture2D" uid="uid://d0y1fgy21l3ol" path="res://Bricks/brick_orange.png" id="2_akf5s"]
+[ext_resource type="Texture2D" uid="uid://d2eg7fcwcxmar" path="res://Bricks/brick_purple.png" id="3_2se1f"]
+[ext_resource type="Texture2D" uid="uid://cb41k75lilj08" path="res://Bricks/brick_green.png" id="3_p2fs8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_82s2h"]
+size = Vector2(20, 12)
+
+[node name="Brick" type="CharacterBody2D"]
+script = ExtResource("1_8gtqh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(10, 6)
+shape = SubResource("RectangleShape2D_82s2h")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="BrickRed" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("2_5ao3f")
+centered = false
+
+[node name="BrickGreen" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("3_p2fs8")
+centered = false
+
+[node name="BrickPurple" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("3_2se1f")
+centered = false
+
+[node name="BrickOrange" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("2_akf5s")
+centered = false
+
+[node name="BrickBlue" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("1_c6lnd")
+centered = false

@@ -7,13 +7,30 @@ var multiplayer_peer = WebSocketMultiplayerPeer.new()
 @onready var port_input = %PortInput
 @onready var ip_address_input = %AddressInput
 @onready var menu = $CanvasLayer/PanelContainer/Menu
-@onready var network_info = $CanvasLayer/NetworkInfo
+@onready var network_info = $CanvasLayer/UI/NetworkInfo
+@onready var panel_container = $CanvasLayer/PanelContainer
+@onready var message_panel = %MessagePanel
+@onready var message_label = %MessageLabel
+
 @onready var players = $Players
+@onready var bricks_player_1 = $BricksPlayer1
+@onready var bricks_player_2 = $BricksPlayer2
+@onready var player_1_spawn = $PlayerSpawn1
+@onready var player_2_spawn = $PlayerSpawn2
+
+# READY, GAMEPLAY, GAME_OVER
+@onready var game_state = "READY"
+@onready var countdown_time = 5
+@onready var start_countdown_timer = $StartCountdownTimer
 
 func _ready():
+	message_panel.hide()
 	if "--server" in OS.get_cmdline_args() and !(OS.has_feature("web")):
 		start_lobby()
 	else:
+		if OS.is_debug_build(): # DEBUG for local testing
+			return
+		
 		if Utils.ready_to_connect():
 			join_room(Utils.room_host, Utils.room_port)
 		else:
@@ -29,13 +46,23 @@ func _on_join_button_pressed():
 func join_room(host: String, port: int) -> void:
 	multiplayer_peer.create_client("ws://" + str(host) + ":" + str(port))
 	multiplayer.multiplayer_peer = multiplayer_peer
-	menu.visible = false
+	menu.hide()
+	panel_container.hide()
 	network_info.hide()
 
 func add_player_character(peer_id):
 	var character = preload("res://Player/Player.tscn").instantiate()
 	character.name = str(peer_id)
-	$Players.add_child(character)
+	var peer_keys = connected_peers.keys()
+	var index = peer_keys.find(str(peer_id))
+	if index == 0:
+		character.global_position = player_1_spawn.global_position
+	elif index == 1:
+		character.global_position = player_2_spawn.global_position
+	players.add_child(character)
+	
+	if connected_peers.size() == 2:
+		start_game()
 
 func _on_start_pressed():
 	start_lobby()
@@ -59,7 +86,7 @@ func start_lobby() -> void:
 					multiplayer_peer.refuse_new_connections = true
 				else:
 					multiplayer_peer.refuse_new_connections = false
-				await get_tree().create_timer(1).timeout
+				await get_tree().create_timer(0.5).timeout
 				add_player_character(new_peer_id)
 			update_room_state()
 	)
@@ -146,3 +173,33 @@ func update_room_state() -> void:
 		return
 	
 	print("Successfully updated room state!")
+
+func start_game() -> void:
+	show_countdown_message(countdown_time)
+	start_countdown_timer.start()
+	for brick in bricks_player_1.get_children():
+		brick.connect("tree_exited", _on_brick_removed)
+
+func show_countdown_message(count: int) -> void:
+	message_panel.show()
+	var suffix = " seconds"
+	if count == 1:
+		suffix = " second"
+	message_label.text = "Starting game in:\n" + str(count) + suffix
+
+func _on_brick_removed():
+	if bricks_player_1.get_child_count() <= 0:
+		# Player 1 won
+		print("Player 1 won")
+	elif bricks_player_2.get_child_count() <= 0:
+		# Player 2 won
+		print("Player 2 won")
+
+func _on_start_countdown_timer_timeout():
+	countdown_time -= 1
+	if countdown_time <= 0:
+		print("Game started!")
+		message_panel.hide()
+	else:
+		show_countdown_message(countdown_time)
+		start_countdown_timer.start()

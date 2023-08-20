@@ -1,10 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://jeukwwnbwv3v"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_cyo08"]
-[ext_resource type="Texture2D" uid="uid://2su0iuhokfjq" path="res://icon.svg" id="2_xg22b"]
+[ext_resource type="Texture2D" uid="uid://c51qpm3npomhi" path="res://Player/paddle.png" id="2_jvpgt"]
 [ext_resource type="Script" path="res://Player/PlayerController.gd" id="3_m5wwv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xn3lh"]
+size = Vector2(32, 8)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_81ei6"]
 properties/0/path = NodePath(".:position")
@@ -28,17 +29,21 @@ script = ExtResource("1_cyo08")
 
 [node name="Body" type="Node2D" parent="."]
 
-[node name="Chicken" type="Sprite2D" parent="Body"]
-scale = Vector2(0.15656, 0.15656)
-texture = ExtResource("2_xg22b")
+[node name="Sprite" type="Sprite2D" parent="Body"]
+texture = ExtResource("2_jvpgt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_xn3lh")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_81ei6")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 320
+limit_bottom = 180
 
 [node name="NameLabel" type="Label" parent="."]
 offset_left = -64.0

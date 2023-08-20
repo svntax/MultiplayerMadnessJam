@@ -1,20 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://q4v13822wj65"]
+[gd_scene load_steps=6 format=3 uid="uid://q4v13822wj65"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_bp686"]
 [ext_resource type="PackedScene" uid="uid://v5nowgwrea5u" path="res://Wall.tscn" id="1_i62x5"]
 [ext_resource type="Theme" uid="uid://dfifbhrbyhgkb" path="res://UI/MainUITheme.tres" id="3_auqqj"]
 [ext_resource type="PackedScene" uid="uid://7f3b4r8nw5re" path="res://Bricks/Brick.tscn" id="3_ryva4"]
 [ext_resource type="PackedScene" uid="uid://bqu2t7shf5y40" path="res://WallH.tscn" id="3_w5yfo"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ewg71"]
-properties/0/path = NodePath(".:visible")
-properties/0/spawn = true
-properties/0/sync = true
-properties/0/watch = false
-properties/1/path = NodePath("VBoxContainer/MessageLabel:text")
-properties/1/spawn = true
-properties/1/sync = true
-properties/1/watch = false
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_bp686")
@@ -243,10 +233,10 @@ position = Vector2(120, 8)
 metadata/_edit_lock_ = true
 
 [node name="PlayerSpawn1" type="Marker2D" parent="."]
-position = Vector2(76, 168)
+position = Vector2(75.9802, 174)
 
 [node name="PlayerSpawn2" type="Marker2D" parent="."]
-position = Vector2(232, 168)
+position = Vector2(231.98, 174)
 
 [node name="BricksPlayer1" type="Node2D" parent="."]
 
@@ -499,52 +489,22 @@ spawn_path = NodePath("../Players")
 layout_mode = 3
 anchors_preset = 0
 offset_right = 320.0
-offset_bottom = 192.0
+offset_bottom = 16.0
 mouse_filter = 1
 theme = ExtResource("3_auqqj")
 metadata/_edit_lock_ = true
 
 [node name="NetworkInfo" type="Label" parent="CanvasLayer/UI"]
-layout_mode = 2
-offset_right = 21.0
-offset_bottom = 16.0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
 grow_horizontal = 2
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Info"
 horizontal_alignment = 1
 metadata/_edit_lock_ = true
-
-[node name="MessagePanel" type="PanelContainer" parent="CanvasLayer/UI"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -82.0
-offset_top = -64.0
-offset_right = 82.0
-offset_bottom = 16.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/MessagePanel"]
-layout_mode = 2
-
-[node name="MessageLabel" type="Label" parent="CanvasLayer/UI/MessagePanel/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-text = "Starting game in:
-10 seconds"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="CanvasLayer/UI/MessagePanel"]
-replication_config = SubResource("SceneReplicationConfig_ewg71")
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
 offset_right = 83.0
@@ -572,9 +532,5 @@ text = "Start"
 layout_mode = 2
 text = "Join"
 
-[node name="StartCountdownTimer" type="Timer" parent="."]
-one_shot = true
-
 [connection signal="pressed" from="CanvasLayer/PanelContainer/Menu/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/Menu/JoinButton" to="." method="_on_join_button_pressed"]
-[connection signal="timeout" from="StartCountdownTimer" to="." method="_on_start_countdown_timer_timeout"]

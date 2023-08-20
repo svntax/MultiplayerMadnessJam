@@ -104,9 +104,9 @@ text = "Back"
 [node name="RefreshButton" type="Button" parent="Control/LobbiesPanel"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 148.0
+offset_left = 144.0
 offset_top = 152.0
-offset_right = 196.0
+offset_right = 192.0
 offset_bottom = 172.0
 text = "Refresh"
 
@@ -142,6 +142,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dxsn5")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_dxsn5")
 theme_override_styles/hover = SubResource("StyleBoxFlat_dxsn5")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_2xb0o")
+disabled = true
 text = "Private"
 flat = true
 alignment = 1
@@ -220,7 +221,6 @@ horizontal_scroll_mode = 0
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet the quick brown fox jumped over the lazy dog and another time this story was fake."
 autowrap_mode = 2
 
 [node name="MessageOkButton" type="Button" parent="Control/MessagePanel/VBoxContainer"]
