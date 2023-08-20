@@ -32,6 +32,7 @@ mouse_cursor/tooltip_position_offset=Vector2(4, 4)
 
 2d_physics/layer_1="SOLID"
 2d_physics/layer_2="PLAYER"
+2d_physics/layer_3="BALL"
 
 [rendering]
 

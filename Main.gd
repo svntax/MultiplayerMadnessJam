@@ -17,11 +17,17 @@ var multiplayer_peer = WebSocketMultiplayerPeer.new()
 @onready var bricks_player_2 = $BricksPlayer2
 @onready var player_1_spawn = $PlayerSpawn1
 @onready var player_2_spawn = $PlayerSpawn2
+@onready var ball_1 = %Ball1
+@onready var ball_2 = %Ball2
+@onready var winner = -1 # Which player won the match
 
 # READY, GAMEPLAY, GAME_OVER
-@onready var game_state = "READY"
+@onready var game_state = "READY" # TODO: handle player disconnect
 @onready var countdown_time = 5
 @onready var start_countdown_timer = $StartCountdownTimer
+@onready var game_over_countdown_time = 10
+@onready var game_over_countdown_timer = $GameOverCountdownTimer
+@onready var win_check_timer = $WinCheckTimer
 
 func _ready():
 	message_panel.hide()
@@ -62,7 +68,7 @@ func add_player_character(peer_id):
 	players.add_child(character)
 	
 	if connected_peers.size() == 2:
-		start_game()
+		start_game_countdown()
 
 func _on_start_pressed():
 	start_lobby()
@@ -174,11 +180,18 @@ func update_room_state() -> void:
 	
 	print("Successfully updated room state!")
 
-func start_game() -> void:
+func start_game_countdown() -> void:
 	show_countdown_message(countdown_time)
 	start_countdown_timer.start()
 	for brick in bricks_player_1.get_children():
-		brick.connect("tree_exited", _on_brick_removed)
+		brick.connect("brick_removed", _on_brick_removed)
+
+func start_game() -> void:
+	panel_container.hide()
+	game_state = "GAMEPLAY"
+	var rand_dir = Vector2(0, -1).rotated(deg_to_rad(randi_range(-70, 70)))
+	ball_1.set_direction(rand_dir)
+	ball_2.set_direction(rand_dir)
 
 func show_countdown_message(count: int) -> void:
 	message_panel.show()
@@ -188,18 +201,69 @@ func show_countdown_message(count: int) -> void:
 	message_label.text = "Starting game in:\n" + str(count) + suffix
 
 func _on_brick_removed():
-	if bricks_player_1.get_child_count() <= 0:
+	check_winner()
+
+func check_winner():
+	if game_state == "GAME_OVER":
+		return
+	
+	var message = ""
+	print("Bricks1 left: " + str(bricks_player_1.get_child_count()))
+	print("Bricks2 left: " + str(bricks_player_2.get_child_count()))
+	if bricks_player_1.get_child_count() <= 0 or \
+			(bricks_player_1.get_child_count() == 1 and bricks_player_1.get_child(0).is_queued_for_deletion()):
 		# Player 1 won
 		print("Player 1 won")
-	elif bricks_player_2.get_child_count() <= 0:
+		winner = 1
+		message = "Player 1 won!"
+	elif bricks_player_2.get_child_count() <= 0 or \
+			(bricks_player_2.get_child_count() == 1 and bricks_player_2.get_child(0).is_queued_for_deletion()):
 		# Player 2 won
 		print("Player 2 won")
+		winner = 2
+		message = "Player 2 won!"
+	if not message.is_empty():
+		message_panel.show()
+		message_label.text = message + "\nClosing game in 10 seconds"
+		game_over()
+	else:
+		# Hacky failsafe for win check
+		if bricks_player_1.get_child_count() <= 2 or bricks_player_2.get_child_count() <= 2:
+			win_check_timer.start()
+
+func game_over() -> void:
+	game_state = "GAME_OVER"
+	ball_1.set_direction(Vector2.ZERO)
+	ball_2.set_direction(Vector2.ZERO)
+	game_over_countdown_timer.start()
 
 func _on_start_countdown_timer_timeout():
 	countdown_time -= 1
 	if countdown_time <= 0:
 		print("Game started!")
 		message_panel.hide()
+		start_game()
 	else:
 		show_countdown_message(countdown_time)
 		start_countdown_timer.start()
+
+func _on_game_over_countdown_timer_timeout():
+	game_over_countdown_time -= 1
+	if game_over_countdown_time <= 0:
+		print("Closing room!")
+		message_panel.hide()
+		# TODO: send players back to main lobby
+		connected_peers.clear()
+		multiplayer_peer.close()
+	else:
+		message_panel.show()
+		var msg_format = "Player %s won!\nClosing game in %s %s"
+		var suffix = "seconds"
+		if game_over_countdown_time == 1:
+			suffix = "second"
+		var msg = msg_format % [str(winner), str(game_over_countdown_time), suffix]
+		message_label.text = msg
+		game_over_countdown_timer.start()
+
+func _on_win_check_timer_timeout():
+	check_winner()

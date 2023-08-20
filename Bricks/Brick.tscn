@@ -11,6 +11,7 @@
 size = Vector2(20, 12)
 
 [node name="Brick" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_8gtqh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

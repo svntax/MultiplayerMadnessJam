@@ -1,7 +1,11 @@
 @tool
 extends CharacterBody2D
 
+signal brick_removed()
+
 @onready var sprites = $Sprites
+var game_ref = null
+@onready var alive = true
 
 enum BrickColor {BLUE, ORANGE, PURPLE, GREEN, RED}
 @export var brick_color: BrickColor = BrickColor.BLUE :
@@ -20,4 +24,15 @@ func _ready():
 		brick_color = brick_color
 
 func hit() -> void:
+	if not alive:
+		return
+	
+	alive = false
+	hide()
+	emit_signal("brick_removed")
+	remove_brick.rpc()
+	queue_free()
+
+@rpc("authority", "call_remote", "reliable")
+func remove_brick():
 	queue_free()

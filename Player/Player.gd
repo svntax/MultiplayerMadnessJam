@@ -19,6 +19,7 @@ func _physics_process(delta):
 	if not synchronizer.is_multiplayer_authority():
 		return
 
+	velocity.y = 0
 	var direction = player_controller.input_vector.limit_length()
 	if direction:
 		velocity.x = direction.x * SPEED
@@ -31,7 +32,8 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
-func jump() -> void:
+# TODO: any action that requires a key press from the player (e.g. shoot ball, shoot lasers)
+func do_action() -> void:
 	pass
 #	if is_on_floor():
 #		velocity.y = JUMP_VELOCITY

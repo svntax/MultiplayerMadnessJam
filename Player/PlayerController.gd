@@ -10,11 +10,11 @@ func _physics_process(delta):
 		input_vector.y = Input.get_axis("ui_up", "ui_down")
 		
 		if Input.is_action_just_pressed("ui_accept"):
-			jump.rpc_id(1) # Call to id 1, which is the server
+			do_action.rpc_id(1) # Call to id 1, which is the server
 
 @rpc("any_peer", "call_remote", "reliable")
-func jump() -> void:
+func do_action() -> void:
 	var player = get_parent()
 	var sender_id = multiplayer.get_remote_sender_id()
 	if player.name == str(sender_id):
-		player.jump()
+		player.do_action()

@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://q4v13822wj65"]
+[gd_scene load_steps=8 format=3 uid="uid://q4v13822wj65"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_bp686"]
 [ext_resource type="PackedScene" uid="uid://v5nowgwrea5u" path="res://Wall.tscn" id="1_i62x5"]
 [ext_resource type="Theme" uid="uid://dfifbhrbyhgkb" path="res://UI/MainUITheme.tres" id="3_auqqj"]
 [ext_resource type="PackedScene" uid="uid://7f3b4r8nw5re" path="res://Bricks/Brick.tscn" id="3_ryva4"]
 [ext_resource type="PackedScene" uid="uid://bqu2t7shf5y40" path="res://WallH.tscn" id="3_w5yfo"]
+[ext_resource type="PackedScene" uid="uid://wqycnnoh7k2d" path="res://Ball/Ball.tscn" id="4_uaajj"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ewg71"]
 properties/0/path = NodePath(".:visible")
@@ -239,11 +240,27 @@ position = Vector2(104, 8)
 [node name="WallH8" parent="Solids/TopWall2" instance=ExtResource("3_w5yfo")]
 position = Vector2(120, 8)
 
+[node name="TEMP_WallH" parent="Solids" instance=ExtResource("3_w5yfo")]
+position = Vector2(160, 200)
+scale = Vector2(21.08, 1)
+
 [node name="Players" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
 
 [node name="PlayerSpawn1" type="Marker2D" parent="."]
 position = Vector2(76, 168)
+
+[node name="BallSpawn1" type="Marker2D" parent="."]
+position = Vector2(80, 108)
+
+[node name="Ball1" parent="BallSpawn1" instance=ExtResource("4_uaajj")]
+unique_name_in_owner = true
+
+[node name="BallSpawn2" type="Marker2D" parent="."]
+position = Vector2(240, 108)
+
+[node name="Ball2" parent="BallSpawn2" instance=ExtResource("4_uaajj")]
+unique_name_in_owner = true
 
 [node name="PlayerSpawn2" type="Marker2D" parent="."]
 position = Vector2(232, 168)
@@ -575,6 +592,14 @@ text = "Join"
 [node name="StartCountdownTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="GameOverCountdownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="WinCheckTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="pressed" from="CanvasLayer/PanelContainer/Menu/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/Menu/JoinButton" to="." method="_on_join_button_pressed"]
 [connection signal="timeout" from="StartCountdownTimer" to="." method="_on_start_countdown_timer_timeout"]
+[connection signal="timeout" from="GameOverCountdownTimer" to="." method="_on_game_over_countdown_timer_timeout"]
+[connection signal="timeout" from="WinCheckTimer" to="." method="_on_win_check_timer_timeout"]
