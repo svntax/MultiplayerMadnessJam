@@ -10,4 +10,4 @@ func _ready():
 		if OS.is_debug_build():
 			get_tree().change_scene_to_file("res://Main.tscn")
 			return
-		get_tree().change_scene_to_file("res://UI/Screens/MainLobby.tscn")
+		get_tree().change_scene_to_file("res://UI/Screens/TitleScreen.tscn")

@@ -72,7 +72,7 @@ func create_lobby(params: Dictionary):
 	var query = {
 		"visibility": params.get("visibility"),
 		"initialConfig": params.get("initial_config"),
-		"region": params.get("region")
+		"region": params.get("region").replace(" ", "_")
 	}
 	var query_json = JSON.stringify(query)
 	var response = await Utils.fetch(url, headers, HTTPClient.METHOD_POST, query_json)
@@ -265,3 +265,6 @@ func _on_join_private_button_pressed():
 	var private_room_id = room_code_input.text
 	await connect_to_room(private_room_id)
 	join_private_button.disabled = false
+
+func _on_back_button_pressed():
+	get_tree().change_scene_to_file("res://UI/Screens/TitleScreen.tscn")

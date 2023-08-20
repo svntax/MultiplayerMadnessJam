@@ -23,6 +23,7 @@ func _ready():
 	if not Engine.is_editor_hint():
 		brick_color = brick_color
 
+# TODO: sometimes the ball hits a brick and it doesn't register.
 func hit() -> void:
 	if not alive:
 		return

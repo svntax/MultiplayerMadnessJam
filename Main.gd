@@ -208,8 +208,6 @@ func check_winner():
 		return
 	
 	var message = ""
-	print("Bricks1 left: " + str(bricks_player_1.get_child_count()))
-	print("Bricks2 left: " + str(bricks_player_2.get_child_count()))
 	if bricks_player_1.get_child_count() <= 0 or \
 			(bricks_player_1.get_child_count() == 1 and bricks_player_1.get_child(0).is_queued_for_deletion()):
 		# Player 1 won

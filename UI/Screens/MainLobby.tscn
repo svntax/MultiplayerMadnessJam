@@ -234,6 +234,7 @@ text = "OK"
 wait_time = 2.0
 one_shot = true
 
+[connection signal="pressed" from="Control/LobbiesPanel/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="Control/LobbiesPanel/RefreshButton" to="." method="_on_refresh_button_pressed"]
 [connection signal="pressed" from="Control/CreateGamePanel/VBoxContainer/CreateButton" to="." method="_on_create_button_pressed"]
 [connection signal="pressed" from="Control/JoinGamePanel/VBoxContainer/JoinPrivateButton" to="." method="_on_join_private_button_pressed"]

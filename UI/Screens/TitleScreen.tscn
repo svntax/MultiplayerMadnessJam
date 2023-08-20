@@ -1,0 +1,165 @@
+[gd_scene load_steps=15 format=3 uid="uid://vfoky5ic8y1v"]
+
+[ext_resource type="Theme" uid="uid://dfifbhrbyhgkb" path="res://UI/MainUITheme.tres" id="1_mtdsw"]
+[ext_resource type="Script" path="res://UI/Screens/TitleScreen.gd" id="1_rwt38"]
+[ext_resource type="FontFile" uid="uid://b11uylohhfc4h" path="res://UI/Not Jam Laika 11.ttf" id="3_fomml"]
+[ext_resource type="Texture2D" uid="uid://d2eg7fcwcxmar" path="res://Bricks/brick_purple.png" id="4_ba588"]
+[ext_resource type="Texture2D" uid="uid://d0y1fgy21l3ol" path="res://Bricks/brick_orange.png" id="5_0dxk0"]
+[ext_resource type="Texture2D" uid="uid://bavlpantn6kcr" path="res://Bricks/brick_blue.png" id="6_ynrad"]
+[ext_resource type="Texture2D" uid="uid://cb41k75lilj08" path="res://Bricks/brick_green.png" id="7_5p8tr"]
+[ext_resource type="Texture2D" uid="uid://bdhvtno5hp0gp" path="res://Bricks/brick_red.png" id="8_h8un4"]
+[ext_resource type="Texture2D" uid="uid://e2ucqxoug6e2" path="res://Bricks/block_h.png" id="9_ffvnu"]
+[ext_resource type="Texture2D" uid="uid://dms4n5jubwnv6" path="res://Bricks/block.png" id="10_bgmqh"]
+[ext_resource type="Texture2D" uid="uid://c51qpm3npomhi" path="res://Player/paddle.png" id="11_6j6hp"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i0suu"]
+texture = ExtResource("9_ffvnu")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_su2pp"]
+texture = ExtResource("10_bgmqh")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_q4gje"]
+sources/0 = SubResource("TileSetAtlasSource_i0suu")
+sources/1 = SubResource("TileSetAtlasSource_su2pp")
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource("1_rwt38")
+metadata/_edit_lock_ = true
+
+[node name="Bg" type="ColorRect" parent="."]
+offset_top = -4.0
+offset_right = 320.0
+offset_bottom = 196.0
+mouse_filter = 2
+color = Color(0, 0.321569, 0.501961, 1)
+
+[node name="Bg2" type="ColorRect" parent="."]
+offset_top = 20.0
+offset_right = 320.0
+offset_bottom = 40.0
+mouse_filter = 2
+color = Color(0.0392157, 0.596078, 0.67451, 1)
+
+[node name="Bg3" type="ColorRect" parent="."]
+offset_top = 42.0
+offset_right = 320.0
+offset_bottom = 48.0
+mouse_filter = 2
+color = Color(0.0392157, 0.596078, 0.67451, 1)
+
+[node name="Bg4" type="ColorRect" parent="."]
+offset_top = 50.0
+offset_right = 320.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.0392157, 0.596078, 0.67451, 1)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_mtdsw")
+
+[node name="Buttons" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 120.0
+offset_right = 192.0
+offset_bottom = 140.0
+
+[node name="PlayButton" type="Button" parent="Control/Buttons"]
+layout_mode = 2
+text = "PLAY"
+
+[node name="Title" type="Label" parent="Control"]
+offset_top = 28.0
+offset_right = 320.0
+offset_bottom = 53.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 4
+theme_override_fonts/font = ExtResource("3_fomml")
+theme_override_font_sizes/font_size = 22
+text = "Brick Versus Brick"
+horizontal_alignment = 1
+
+[node name="Decorations" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="BrickPurple" type="Sprite2D" parent="Decorations"]
+position = Vector2(210, 102)
+texture = ExtResource("4_ba588")
+
+[node name="BrickPurple2" type="Sprite2D" parent="Decorations"]
+position = Vector2(230, 102)
+texture = ExtResource("4_ba588")
+
+[node name="BrickPurple3" type="Sprite2D" parent="Decorations"]
+position = Vector2(250, 102)
+texture = ExtResource("4_ba588")
+
+[node name="BrickOrange" type="Sprite2D" parent="Decorations"]
+position = Vector2(138, 78)
+texture = ExtResource("5_0dxk0")
+
+[node name="BrickOrange2" type="Sprite2D" parent="Decorations"]
+position = Vector2(158, 78)
+texture = ExtResource("5_0dxk0")
+
+[node name="BrickOrange3" type="Sprite2D" parent="Decorations"]
+position = Vector2(178, 78)
+texture = ExtResource("5_0dxk0")
+
+[node name="BrickBlue" type="Sprite2D" parent="Decorations"]
+position = Vector2(106, 86)
+texture = ExtResource("6_ynrad")
+
+[node name="BrickBlue2" type="Sprite2D" parent="Decorations"]
+position = Vector2(86, 86)
+texture = ExtResource("6_ynrad")
+
+[node name="BrickBlue3" type="Sprite2D" parent="Decorations"]
+position = Vector2(66, 86)
+texture = ExtResource("6_ynrad")
+
+[node name="BrickGreen" type="Sprite2D" parent="Decorations"]
+position = Vector2(66, 102)
+texture = ExtResource("7_5p8tr")
+
+[node name="BrickGreen2" type="Sprite2D" parent="Decorations"]
+position = Vector2(86, 102)
+texture = ExtResource("7_5p8tr")
+
+[node name="BrickGreen3" type="Sprite2D" parent="Decorations"]
+position = Vector2(106, 102)
+texture = ExtResource("7_5p8tr")
+
+[node name="BrickRed" type="Sprite2D" parent="Decorations"]
+position = Vector2(210, 86)
+texture = ExtResource("8_h8un4")
+
+[node name="BrickRed2" type="Sprite2D" parent="Decorations"]
+position = Vector2(230, 86)
+texture = ExtResource("8_h8un4")
+
+[node name="BrickRed3" type="Sprite2D" parent="Decorations"]
+position = Vector2(250, 86)
+texture = ExtResource("8_h8un4")
+
+[node name="TileMap" type="TileMap" parent="Decorations"]
+tile_set = SubResource("TileSet_q4gje")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 720896, 1, 0, 655360, 1, 0, 589824, 1, 0, 524288, 1, 0, 458752, 1, 0, 393216, 1, 0, 327680, 1, 0, 262144, 1, 0, 196608, 1, 0, 131072, 1, 0, 65536, 1, 0, 720915, 1, 0, 655379, 1, 0, 589843, 1, 0, 524307, 1, 0, 458771, 1, 0, 393235, 1, 0, 327699, 1, 0, 262163, 1, 0, 196627, 1, 0, 131091, 1, 0, 65555, 1, 0, 786432, 1, 0, 786451, 1, 0)
+
+[node name="Paddle" type="Sprite2D" parent="."]
+position = Vector2(160, 168)
+texture = ExtResource("11_6j6hp")
+
+[connection signal="pressed" from="Control/Buttons/PlayButton" to="." method="_on_play_button_pressed"]
