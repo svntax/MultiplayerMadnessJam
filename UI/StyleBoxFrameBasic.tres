@@ -1,0 +1,13 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://cu35r66j5r1f7"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lyssv"]
+load_path = "res://.godot/imported/ui_frame_basic.png-3c835c50d91fac735204bf3264327677.ctex"
+
+[resource]
+texture = SubResource("CompressedTexture2D_lyssv")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1

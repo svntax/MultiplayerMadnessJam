@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://jeukwwnbwv3v"]
+
+[ext_resource type="Script" path="res://Player/Player.gd" id="1_cyo08"]
+[ext_resource type="Texture2D" uid="uid://2su0iuhokfjq" path="res://icon.svg" id="2_xg22b"]
+[ext_resource type="Script" path="res://Player/PlayerController.gd" id="3_m5wwv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xn3lh"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_81ei6"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath("Body:scale")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = true
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hqwj1"]
+properties/0/path = NodePath(".:input_vector")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_cyo08")
+
+[node name="Body" type="Node2D" parent="."]
+
+[node name="Chicken" type="Sprite2D" parent="Body"]
+scale = Vector2(0.15656, 0.15656)
+texture = ExtResource("2_xg22b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xn3lh")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_81ei6")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="NameLabel" type="Label" parent="."]
+offset_left = -64.0
+offset_top = -32.0
+offset_right = 64.0
+offset_bottom = -9.0
+horizontal_alignment = 1
+
+[node name="PlayerController" type="Node2D" parent="."]
+script = ExtResource("3_m5wwv")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="PlayerController"]
+replication_config = SubResource("SceneReplicationConfig_hqwj1")

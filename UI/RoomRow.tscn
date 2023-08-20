@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://clweq7careohr"]
+
+[ext_resource type="Script" path="res://UI/RoomRow.gd" id="1_1d4as"]
+
+[node name="RoomRow" type="HBoxContainer"]
+script = ExtResource("1_1d4as")
+
+[node name="RoomId" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "asdf"
+horizontal_alignment = 1
+text_overrun_behavior = 3
+
+[node name="PlayersCount" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "1/2"
+horizontal_alignment = 1
+
+[node name="Region" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Seattle"
+mouse_filter = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Seattle"
+horizontal_alignment = 1
+text_overrun_behavior = 3
+
+[node name="JoinButton" type="Button" parent="."]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+text = "Join"
+
+[connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]

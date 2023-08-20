@@ -1,0 +1,237 @@
+[gd_scene load_steps=6 format=3 uid="uid://dh1r11fj14umb"]
+
+[ext_resource type="Script" path="res://UI/Screens/MainLobby.gd" id="1_tcedt"]
+[ext_resource type="Theme" uid="uid://dfifbhrbyhgkb" path="res://UI/MainUITheme.tres" id="1_xdu7r"]
+[ext_resource type="StyleBox" uid="uid://cetl7j3opjpct" path="res://UI/StyleBoxDarkFrameBasic.tres" id="3_8vf54"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dxsn5"]
+bg_color = Color(0.772549, 0.592157, 0.509804, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.309804, 0.0823529, 0.027451, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2xb0o"]
+
+[node name="MainLobby" type="Node2D"]
+script = ExtResource("1_tcedt")
+metadata/_edit_lock_ = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 180.0
+theme = ExtResource("1_xdu7r")
+
+[node name="LobbiesPanel" type="Panel" parent="Control"]
+layout_mode = 0
+offset_right = 208.0
+offset_bottom = 180.0
+theme = ExtResource("1_xdu7r")
+
+[node name="Header" type="Label" parent="Control/LobbiesPanel"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 204.0
+offset_bottom = 20.0
+text = "Public Lobbies"
+horizontal_alignment = 1
+
+[node name="ScrollPanel" type="Panel" parent="Control/LobbiesPanel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 26.0
+offset_right = 202.0
+offset_bottom = 146.0
+theme_override_styles/panel = ExtResource("3_8vf54")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/LobbiesPanel"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 28.0
+offset_right = 200.0
+offset_bottom = 144.0
+horizontal_scroll_mode = 0
+
+[node name="Lobbies" type="VBoxContainer" parent="Control/LobbiesPanel/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColumnHeaders" type="HBoxContainer" parent="Control/LobbiesPanel/ScrollContainer/Lobbies"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RoomLabel" type="Label" parent="Control/LobbiesPanel/ScrollContainer/Lobbies/ColumnHeaders"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Room ID"
+horizontal_alignment = 1
+
+[node name="PlayersLabel" type="Label" parent="Control/LobbiesPanel/ScrollContainer/Lobbies/ColumnHeaders"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Players"
+horizontal_alignment = 1
+
+[node name="RegionLabel" type="Label" parent="Control/LobbiesPanel/ScrollContainer/Lobbies/ColumnHeaders"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Region"
+horizontal_alignment = 1
+
+[node name="ButtonLabel" type="Label" parent="Control/LobbiesPanel/ScrollContainer/Lobbies/ColumnHeaders"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "---"
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="Control/LobbiesPanel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 152.0
+offset_right = 47.0
+offset_bottom = 172.0
+text = "Back"
+
+[node name="RefreshButton" type="Button" parent="Control/LobbiesPanel"]
+layout_mode = 0
+offset_left = 148.0
+offset_top = 152.0
+offset_right = 196.0
+offset_bottom = 172.0
+text = "Refresh"
+
+[node name="CreateGamePanel" type="Panel" parent="Control"]
+layout_mode = 0
+offset_left = 208.0
+offset_right = 320.0
+offset_bottom = 104.0
+theme = ExtResource("1_xdu7r")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/CreateGamePanel"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 108.0
+offset_bottom = 100.0
+
+[node name="Header" type="Label" parent="Control/CreateGamePanel/VBoxContainer"]
+layout_mode = 2
+text = "Create Game"
+horizontal_alignment = 1
+
+[node name="RoomVisibilityToggle" type="CheckButton" parent="Control/CreateGamePanel/VBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.309804, 0.0823529, 0.027451, 1)
+theme_override_colors/font_pressed_color = Color(0.309804, 0.0823529, 0.027451, 1)
+theme_override_colors/font_hover_color = Color(0.309804, 0.0823529, 0.027451, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.309804, 0.0823529, 0.027451, 1)
+theme_override_colors/font_focus_color = Color(0.309804, 0.0823529, 0.027451, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_dxsn5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dxsn5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dxsn5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2xb0o")
+text = "Private"
+flat = true
+alignment = 1
+
+[node name="RegionButton" type="OptionButton" parent="Control/CreateGamePanel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(92, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CreateButton" type="Button" parent="Control/CreateGamePanel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Create"
+
+[node name="JoinGamePanel" type="Panel" parent="Control"]
+layout_mode = 0
+offset_left = 208.0
+offset_top = 104.0
+offset_right = 320.0
+offset_bottom = 180.0
+theme = ExtResource("1_xdu7r")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/JoinGamePanel"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 108.0
+offset_bottom = 100.0
+
+[node name="Header" type="Label" parent="Control/JoinGamePanel/VBoxContainer"]
+layout_mode = 2
+text = "Join Game"
+horizontal_alignment = 1
+
+[node name="RoomCodeInput" type="LineEdit" parent="Control/JoinGamePanel/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Room code"
+max_length = 12
+
+[node name="JoinButton" type="Button" parent="Control/JoinGamePanel/VBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Join"
+
+[node name="MessagePanel" type="PanelContainer" parent="Control"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = -64.0
+offset_right = 82.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MessagePanel"]
+layout_mode = 2
+
+[node name="MessageContainer" type="ScrollContainer" parent="Control/MessagePanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="MessageLabel" type="Label" parent="Control/MessagePanel/VBoxContainer/MessageContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet the quick brown fox jumped over the lazy dog and another time this story was fake."
+autowrap_mode = 2
+
+[node name="MessageOkButton" type="Button" parent="Control/MessagePanel/VBoxContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "OK"
+
+[node name="JoinRoomTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="pressed" from="Control/LobbiesPanel/RefreshButton" to="." method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="Control/CreateGamePanel/VBoxContainer/CreateButton" to="." method="_on_create_button_pressed"]
+[connection signal="pressed" from="Control/MessagePanel/VBoxContainer/MessageOkButton" to="." method="_on_message_ok_button_pressed"]
+[connection signal="timeout" from="JoinRoomTimer" to="." method="_on_join_room_timer_timeout"]
