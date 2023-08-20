@@ -6,7 +6,7 @@ extends Node2D
 
 func _physics_process(delta):
 	if synchronizer.is_multiplayer_authority():
-		input_vector.x = Input.get_axis("ui_left", "ui_right")
+		input_vector.x = Input.get_axis("move_left", "move_right")
 		input_vector.y = Input.get_axis("ui_up", "ui_down")
 		
 		if Input.is_action_just_pressed("ui_accept"):

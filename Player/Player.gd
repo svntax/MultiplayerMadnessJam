@@ -9,6 +9,8 @@ const SPEED = 128.0
 @onready var input_synchronizer = $PlayerController/MultiplayerSynchronizer
 @onready var name_label = $NameLabel
 
+var player_name = ""
+
 func _ready():
 	name_label.text = name
 	input_synchronizer.set_multiplayer_authority(str(name).to_int())
@@ -18,6 +20,9 @@ func _ready():
 func _physics_process(delta):
 	if not synchronizer.is_multiplayer_authority():
 		return
+	
+	if not player_name.is_empty():
+		name_label.text = player_name
 
 	velocity.y = 0
 	var direction = player_controller.input_vector.limit_length()

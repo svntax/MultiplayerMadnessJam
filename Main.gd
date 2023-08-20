@@ -34,8 +34,8 @@ func _ready():
 	if "--server" in OS.get_cmdline_args() and !(OS.has_feature("web")):
 		start_lobby()
 	else:
-		if OS.is_debug_build(): # DEBUG for local testing
-			return
+#		if OS.is_debug_build(): # DEBUG for local testing
+#			return
 		
 		if Utils.ready_to_connect():
 			join_room(Utils.room_host, Utils.room_port)
@@ -50,7 +50,8 @@ func _on_join_button_pressed():
 	join_room(ip_address_input.text, str(port_input.text).to_int())
 
 func join_room(host: String, port: int) -> void:
-	multiplayer_peer.create_client("ws://" + str(host) + ":" + str(port))
+	var client_tls_options = TLSOptions.client()
+	multiplayer_peer.create_client("wss://" + str(host) + ":" + str(port), client_tls_options)
 	multiplayer.multiplayer_peer = multiplayer_peer
 	menu.hide()
 	panel_container.hide()
@@ -63,8 +64,10 @@ func add_player_character(peer_id):
 	var index = peer_keys.find(str(peer_id))
 	if index == 0:
 		character.global_position = player_1_spawn.global_position
+		character.player_name = "P1"
 	elif index == 1:
 		character.global_position = player_2_spawn.global_position
+		character.player_name = "P2"
 	players.add_child(character)
 	
 	if connected_peers.size() == 2:

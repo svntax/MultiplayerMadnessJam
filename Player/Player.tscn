@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://jeukwwnbwv3v"]
+[gd_scene load_steps=8 format=3 uid="uid://jeukwwnbwv3v"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_cyo08"]
 [ext_resource type="Texture2D" uid="uid://c51qpm3npomhi" path="res://Player/paddle.png" id="2_jvpgt"]
+[ext_resource type="Theme" uid="uid://dfifbhrbyhgkb" path="res://UI/MainUITheme.tres" id="3_jbgw7"]
 [ext_resource type="Script" path="res://Player/PlayerController.gd" id="3_m5wwv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xn3lh"]
@@ -49,9 +50,11 @@ limit_bottom = 180
 
 [node name="NameLabel" type="Label" parent="."]
 offset_left = -64.0
-offset_top = -32.0
+offset_top = -21.0
 offset_right = 64.0
-offset_bottom = -9.0
+offset_bottom = -5.0
+theme = ExtResource("3_jbgw7")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 horizontal_alignment = 1
 
 [node name="PlayerController" type="Node2D" parent="."]
