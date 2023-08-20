@@ -22,6 +22,9 @@ var RoomRow = preload("res://UI/RoomRow.tscn")
 @onready var message_panel = %MessagePanel
 @onready var message_label = %MessageLabel
 @onready var join_room_timer = $JoinRoomTimer
+@onready var join_private_button = %JoinPrivateButton
+@onready var room_code_input = %RoomCodeInput
+@onready var refresh_button = %RefreshButton
 
 func _ready():
 	message_panel.hide()
@@ -205,14 +208,14 @@ func _on_create_button_pressed():
 	join_room_timer.start()
 	show_error_message("Joining room, please wait...")
 
-func connect_to_room():
-	if Utils.room_id == null:
+func connect_to_room(room_id: String = Utils.room_id):
+	if room_id == null:
 		show_error_message("Error: attempted to connect to an invalid room id.")
 		return
 	
-	var room_data = await fetch_connection_info(Utils.room_id)
+	var room_data = await fetch_connection_info(room_id)
 	if room_data == null:
-		show_error_message("Failed to get connection info for room: " + Utils.room_id)
+		show_error_message("Failed to get connection info for room: " + room_id)
 		Utils.reset_room_data()
 		create_button.disabled = false
 		return
@@ -229,7 +232,7 @@ func connect_to_room():
 
 func _on_join_room_attempt(room_id: String):
 	Utils.room_id = room_id
-	connect_to_room()
+	connect_to_room(Utils.room_id)
 
 func show_error_message(message: String) -> void:
 	push_error(message)
@@ -248,9 +251,17 @@ func _on_join_room_timer_timeout():
 
 # Refresh the lobbies list
 func _on_refresh_button_pressed():
+	refresh_button.disabled = true
 	for child in lobbies_container.get_children():
 		if child == column_headers:
 			continue
 		child.queue_free()
 	
-	fetch_public_lobbies()
+	await fetch_public_lobbies()
+	refresh_button.disabled = false
+
+func _on_join_private_button_pressed():
+	join_private_button.disabled = true
+	var private_room_id = room_code_input.text
+	await connect_to_room(private_room_id)
+	join_private_button.disabled = false
