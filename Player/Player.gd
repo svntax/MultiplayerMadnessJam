@@ -9,7 +9,9 @@ const SPEED = 128.0
 @onready var input_synchronizer = $PlayerController/MultiplayerSynchronizer
 @onready var name_label = $NameLabel
 
-var player_name = ""
+var player_name = "" # TODO: need to synchronize this into the name label
+
+@onready var original_y = global_position.y
 
 func _ready():
 	name_label.text = name
@@ -36,6 +38,7 @@ func _physics_process(delta):
 		#velocity.y = move_toward(velocity.y, 0, SPEED)
 	
 	move_and_slide()
+	global_position.y = original_y
 
 # TODO: any action that requires a key press from the player (e.g. shoot ball, shoot lasers)
 func do_action() -> void:

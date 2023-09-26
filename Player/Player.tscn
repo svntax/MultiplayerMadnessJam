@@ -5,8 +5,9 @@
 [ext_resource type="Theme" uid="uid://dfifbhrbyhgkb" path="res://UI/MainUITheme.tres" id="3_jbgw7"]
 [ext_resource type="Script" path="res://Player/PlayerController.gd" id="3_m5wwv"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xn3lh"]
-size = Vector2(32, 8)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6qcfy"]
+radius = 5.0
+height = 34.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_81ei6"]
 properties/0/path = NodePath(".:position")
@@ -36,8 +37,9 @@ script = ExtResource("1_cyo08")
 texture = ExtResource("2_jvpgt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
-shape = SubResource("RectangleShape2D_xn3lh")
+position = Vector2(0, -1)
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_6qcfy")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_81ei6")
