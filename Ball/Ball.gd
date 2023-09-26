@@ -11,7 +11,6 @@ func set_direction(dir: Vector2) -> void:
 	direction.y = dir.y
 	direction = direction.normalized()
 
-# TODO: ball sometimes pushes the paddle
 func _physics_process(delta):
 	if not synchronizer.is_multiplayer_authority():
 		return

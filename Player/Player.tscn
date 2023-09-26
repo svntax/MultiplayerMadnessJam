@@ -18,6 +18,10 @@ properties/1/path = NodePath("Body:scale")
 properties/1/spawn = true
 properties/1/sync = true
 properties/1/watch = true
+properties/2/path = NodePath("NameLabel:text")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hqwj1"]
 properties/0/path = NodePath(".:input_vector")

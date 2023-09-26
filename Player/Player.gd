@@ -9,7 +9,7 @@ const SPEED = 128.0
 @onready var input_synchronizer = $PlayerController/MultiplayerSynchronizer
 @onready var name_label = $NameLabel
 
-var player_name = "" # TODO: need to synchronize this into the name label
+var player_name = ""
 
 @onready var original_y = global_position.y
 
